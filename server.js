@@ -596,7 +596,7 @@ app.post("/api/machines/identify", limitRequests, limitRequestSize, upload.array
 });
 
 app.use("/api", (_request, response) => response.status(404).json({ error: "API 경로를 찾지 못했습니다." }));
-app.use(express.static(currentDir, {
+app.use(express.static(path.join(currentDir, "public"), {
   dotfiles: "ignore",
   index: "index.html",
   setHeaders(response, filePath) {
