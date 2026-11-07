@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f8f4" />
+    <meta name="description" content="잘 모르는 기계 사진을 올리면, 확인된 정보를 쉬운 말로 안내하는 어르신을 위한 기계 사용 안내 서비스입니다." />
+    <title>기계도움 — 낯선 기계, 함께 알아봐요</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-content" id="page-content" data-color-mode="normal">
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="기계도움 홈">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M7 17.5 13 23l12-14" /></svg></span>
+        <span>기계도움<span class="brand-dot">.</span></span>
+      </a>
+      <a class="top-link" href="#how-it-works">이용 방법 <span aria-hidden="true">↗</span></a>
+      <div class="topbar-settings">
+        <details class="display-settings">
+          <summary aria-controls="display-settings-panel">화면 조절</summary>
+          <div class="display-settings-panel" id="display-settings-panel">
+            <label for="color-mode">색상 모드</label>
+            <select id="color-mode">
+              <option value="normal">기본 색상</option>
+              <option value="red">빨강</option>
+              <option value="blue">파랑</option>
+              <option value="yellow">노랑</option>
+              <option value="orange">주황</option>
+              <option value="purple">보라</option>
+              <option value="green">초록</option>
+              <option value="grayscale">흑백</option>
+            </select>
+            <label for="brightness-control">화면 밝기 <output id="brightness-value" for="brightness-control" aria-live="polite">100%</output></label>
+            <input id="brightness-control" type="range" min="70" max="130" step="5" value="100" />
+            <label for="text-size-control">글자 크기 <output id="text-size-value" for="text-size-control" aria-live="polite">100%</output></label>
+            <input id="text-size-control" type="range" min="100" max="160" step="10" value="100" />
+            <button id="display-settings-reset" type="button">기본 설정으로 돌리기</button>
+          </div>
+        </details>
+        <details class="voice-language-settings">
+          <summary aria-controls="voice-language-panel">음성 언어</summary>
+          <div class="display-settings-panel voice-language-panel" id="voice-language-panel">
+            <label for="speech-language">안내 음성 언어</label>
+            <select id="speech-language">
+              <option value="ko-KR">한국어</option>
+              <option value="en-US">English</option>
+              <option value="ja-JP">日本語</option>
+              <option value="zh-CN">中文</option>
+              <option value="es-ES">Español</option>
+              <option value="fr-FR">Français</option>
+              <option value="de-DE">Deutsch</option>
+              <option value="it-IT">Italiano</option>
+              <option value="pt-BR">Português (Brasil)</option>
+              <option value="ru-RU">Русский</option>
+              <option value="ar-SA">العربية</option>
+              <option value="hi-IN">हिन्दी</option>
+              <option value="vi-VN">Tiếng Việt</option>
+              <option value="id-ID">Bahasa Indonesia</option>
+              <option value="th-TH">ไทย</option>
+              <option value="tr-TR">Türkçe</option>
+            </select>
+            <p class="voice-language-note">단계를 선택한 언어로 번역해 읽습니다.</p>
+          </div>
+        </details>
+      </div>
+    </header>
+
+    <main id="home">
+      <section class="ai-chat-section wrap" aria-labelledby="chat-title">
+        <div class="ai-chat-card">
+          <div class="ai-chat-header">
+            <div class="chat-avatar" aria-hidden="true">AI</div>
+            <div class="chat-heading"><span>먼저 연결을 확인해 보세요</span><h2 id="chat-title">기계도움 챗봇</h2></div>
+            <div class="connection-badge" id="chat-connection" data-state="idle"><i></i><span>연결 확인 전</span></div>
+          </div>
+          <div class="chat-messages" id="chat-messages" aria-live="polite" aria-label="챗봇 대화">
+            <div class="chat-bubble assistant-bubble">안녕하세요! 메시지를 보내면 AI가 답하고 연결 상태도 알려드려요.</div>
+          </div>
+          <form class="chat-form" id="chat-form">
+            <label class="sr-only" for="chat-input">챗봇에게 메시지 보내기</label>
+            <textarea id="chat-input" maxlength="8000" rows="2" placeholder="예: 전자레인지는 어떻게 사용하나요?" required></textarea>
+            <button class="chat-send" id="chat-send" type="submit"><span>보내기</span><span aria-hidden="true">↑</span></button>
+          </form>
+          <p class="chat-privacy">메시지는 답변을 위해 OpenAI로 전송됩니다. API 키는 서버에서 안전하게 사용됩니다.</p>
+        </div>
+      </section>
+      <section class="hero wrap">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-icon" aria-hidden="true">✳</span> 어르신을 위한 기계 안내</div>
+          <h1>낯선 기계,<br /><span>혼자 고민하지 마세요.</span></h1>
+          <p class="hero-lede">사진 한 장이면 충분해요.<br />무슨 기계인지, 어떻게 쓰는지 쉬운 말로 알려드릴게요.</p>
+          <a class="hero-cta" href="#upload">기계 사진 보내기 <span aria-hidden="true">↓</span></a>
+          <div class="trust-note"><span class="shield" aria-hidden="true">✓</span> 확인된 정보와 근거를 함께 안내합니다</div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="art-sun"></div>
+          <div class="art-card art-card-back"><div class="back-knob"></div><div class="back-line"></div><div class="back-screen"></div></div>
+          <div class="art-card art-card-front"><div class="front-top"><i></i><i></i><i></i></div><div class="front-screen"><span>사용 안내</span><b>시작</b></div><div class="front-controls"><i></i><i></i><i></i></div></div>
+          <div class="art-spark spark-one">✦</div><div class="art-spark spark-two">✳</div>
+          <div class="art-caption"><span class="caption-icon">?</span> 이건 어떤 기계일까요?</div>
+        </div>
+      </section>
+
+      <section class="upload-section" id="upload">
+        <div class="wrap upload-wrap">
+          <div class="section-heading">
+            <div class="step-label"><span>01</span> 사진 보내기</div>
+            <h2>기계 사진을 올려주세요</h2>
+            <p>기계 전체가 보이도록 찍어주세요. 글씨나 버튼이 작으면 가까이 찍은 사진도 함께 올려주시면 좋아요.</p>
+          </div>
+
+          <div class="upload-layout">
+            <div class="upload-card" id="drop-zone">
+              <input class="sr-only" id="file-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif,.pdf" multiple />
+              <input class="sr-only" id="camera-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" capture="environment" />
+              <div class="upload-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 31V9m0 0-8 8m8-8 8 8M10 28v10h28V28" /></svg></div>
+              <h3>여기에 사진을 놓아주세요</h3>
+              <p>사진 또는 설명서를 선택할 수 있어요</p>
+              <div class="upload-actions">
+                <button class="button button-primary" id="choose-button" type="button"><span aria-hidden="true">＋</span> 파일 찾아보기</button>
+                <button class="button button-secondary" id="camera-button" type="button"><span aria-hidden="true">◎</span> 지금 사진 찍기</button>
+              </div>
+              <p class="file-hint">JPG, PNG, WebP, GIF, PDF · 파일당 20MB까지</p>
+              <div class="file-list" id="file-list" aria-live="polite"></div>
+            </div>
+            <aside class="photo-tip">
+              <div class="tip-heading"><span class="tip-bulb" aria-hidden="true">✳</span><h3>이렇게 찍으면 잘 보여요</h3></div>
+              <div class="tip-item"><span class="tip-number">1</span><p>기계의 <strong>전체 모습</strong>을 찍어주세요.</p></div>
+              <div class="tip-item"><span class="tip-number">2</span><p><strong>이름표는 선택</strong>이에요. 없어도 사진 속 특징으로 찾아볼게요.</p></div>
+              <div class="tip-item"><span class="tip-number">3</span><p>버튼이나 글씨가 작으면 <strong>가까이</strong> 찍어주세요.</p></div>
+              <div class="tip-sample" aria-label="제품 이름표 예시"><div class="sample-label"><div class="sample-brand">제품 정보</div><span>제품명　○○○○</span><span>모델명　AB-1234</span><span>정격전압　220 V</span><div class="sample-barcode"></div></div><span class="sample-arrow">← 있으면 도움돼요</span></div>
+            </aside>
+          </div>
+          <div class="difficulty-field">
+            <label for="difficulty-input">어떤 부분이 가장 어려우신가요?</label>
+            <textarea id="difficulty-input" maxlength="500" rows="3" placeholder="예: 어떤 버튼을 눌러야 하는지 모르겠어요. 전원을 켜는 순서가 헷갈려요."></textarea>
+            <p>어려운 점을 적어 주시면 그 부분을 더 쉽게 설명해 드려요. 비워 두셔도 괜찮습니다.</p>
+          </div>
+          <div class="privacy-note"><span aria-hidden="true">🔒</span><span><strong>사진은 기계 확인을 위해 OpenAI 분석 서비스로 전송됩니다.</strong> 주소, 전화번호, 얼굴 등 개인정보를 가리고 올려주세요.</span></div>
+          <section class="result-panel" id="machine-result" aria-labelledby="result-title" aria-live="polite">
+            <div class="result-heading">
+              <div class="result-heading-icon" aria-hidden="true">⌕</div>
+              <div><div class="result-kicker" id="result-status">사진을 올려주세요</div><h2 id="result-title">기계 정보 안내</h2></div>
+            </div>
+            <p class="result-message" id="result-message">사진 속 모양과 표시를 살펴보고, 이름표가 없어도 찾을 수 있는 자료를 바탕으로 안내합니다.</p>
+            <div class="result-content" id="result-content" hidden>
+              <div class="result-identity"><span>확인한 기계</span><strong id="result-machine-name"></strong><span id="result-model"></span></div>
+              <button class="identification-basis-button" id="identification-basis-button" type="button" aria-expanded="false" aria-controls="identification-basis-panel" hidden>왜 이렇게 식별했나요?</button>
+              <div class="identification-basis-panel" id="identification-basis-panel" hidden><h3>식별 근거</h3><ul id="identification-evidence"></ul></div>
+              <div class="result-block"><h3>무슨 용도인가요?</h3><p id="result-purpose"></p></div>
+              <div class="result-block"><h3>어떻게 사용하나요?</h3><button class="step-speech-button read-all-steps-button" id="read-all-steps" type="button" aria-pressed="false">▶ 전체 단계 이어 듣기</button><div class="steps-progress" id="steps-progress"><div class="steps-progress-label"><strong>진행률</strong><span id="steps-progress-text" aria-live="polite">0 / 0단계 완료</span></div><progress id="steps-progress-bar" max="100" value="0" aria-label="단계 완료 진행률">0%</progress></div><ol id="result-steps"></ol></div>
+              <div class="result-block result-cautions" id="result-cautions-block"><h3>사용할 때 주의할 점</h3><button class="step-speech-button read-all-cautions-button" id="read-all-cautions" type="button" aria-pressed="false">⚠ 주의사항 이어 듣기</button><ul id="result-cautions"></ul></div>
+              <div class="result-sources"><h3>확인한 자료</h3><ul id="result-sources"></ul></div>
+            </div>
+            <p class="result-footnote">정확한 모델을 찾지 못하면 확인된 기계 종류의 일반적인 사용법을 안내합니다. 위험한 작업은 추측하지 않습니다.</p>
+          </section>
+        </div>
+      </section>
+
+      <section class="steps-section wrap" id="how-it-works">
+        <div class="section-heading centered">
+          <div class="step-label"><span>02</span> 쉬운 안내</div>
+          <h2>이렇게 도와드려요</h2>
+          <p>추측으로 답하지 않고, 확인할 수 있는 자료를 바탕으로 안내합니다.</p>
+        </div>
+        <div class="steps-grid">
+          <article class="step-card"><div class="step-icon step-icon-lavender" aria-hidden="true"><span>▧</span></div><div class="step-count">STEP 1</div><h3>사진을 확인해요</h3><p>외형과 로고, 조작부를 살펴봐요. 이름표는 없어도 괜찮아요.</p></article>
+          <article class="step-card"><div class="step-icon step-icon-peach" aria-hidden="true"><span>⌕</span></div><div class="step-count">STEP 2</div><h3>믿을 만한 자료를 찾아요</h3><p>제조사 설명서와 공공기관 자료를 확인하고 출처를 표시합니다.</p></article>
+          <article class="step-card"><div class="step-icon step-icon-mint" aria-hidden="true"><span>☷</span></div><div class="step-count">STEP 3</div><h3>큰 글씨로 알려드려요</h3><p>기계의 용도와 순서를 쉬운 말로 정리해 드립니다.</p></article>
+        </div>
+      </section>
+
+      <section class="safety-band">
+        <div class="wrap safety-inner"><div class="safety-icon" aria-hidden="true">!</div><div><h2>안전을 먼저 확인해 주세요</h2><p>정체를 모르는 기계는 함부로 켜거나 분해하지 마세요. 가스 냄새, 연기, 뜨거운 열이 나면 가까이 가지 말고 119 또는 관리 담당자에게 연락하세요.</p></div></div>
+      </section>
+    </main>
+
+    <footer class="footer wrap"><a class="brand footer-brand" href="#home"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M7 17.5 13 23l12-14" /></svg></span><span>기계도움<span class="brand-dot">.</span></span></a><p>이름표가 없어도 사진에서 찾을 수 있는 범위로 안내합니다.</p><span class="footer-small">© 2026 기계도움</span></footer>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
